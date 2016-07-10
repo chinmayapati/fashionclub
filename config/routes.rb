@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  get 'checkout/check'
+
   # Accounts Routes
   get 'accounts/dashboard'
   get 'accounts/profile'
