@@ -1,5 +1,11 @@
 Rails.application.routes.draw do
 
+  get 'checkout/checkout'
+
+  get 'checkout/checkout_payment'
+
+  get 'checkout/checkout_review'
+
   get 'checkout/check'
 
   # Accounts Routes
@@ -19,7 +25,9 @@ Rails.application.routes.draw do
   get 'home/cart'
   get 'home/checkout'
   get 'home/single_product'
-
+  get 'home/stores'
+  get 'home/tac'
+  get 'home/privacy'
   # Users Routes
   get 'users' => 'users#signin'
   get 'users/signin'

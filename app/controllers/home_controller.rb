@@ -17,4 +17,13 @@ class HomeController < ApplicationController
     def single_product
 
     end
+  def stores
+
+  end
+  def tac
+
+  end
+  def privacy
+
+  end
 end

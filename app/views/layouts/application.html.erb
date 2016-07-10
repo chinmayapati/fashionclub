@@ -41,7 +41,7 @@
     }
 
 
-      .title{
+      .title1{
         font-size: 25px !important;
         font-weight: bold;
         letter-spacing: -1px;
@@ -52,6 +52,15 @@
 
       .email{
         font-weight: normal;
+      }
+
+
+      .alogin{
+        display: none;
+      }
+
+      .blogin{
+        display: non;
       }
   </style>
 
@@ -157,22 +166,25 @@
             <ul class="dropdown-menu quick-action">
               <li class="col-sm-12">
                 <ul class="list-unstyled text-center">
-                  <div style="display: none;">
-                  <li class="title">You Need To Log-In</li><br>
-                  <li class="col-sm-6"><a href="/accounts/signin" class="btn btn-primary btn-block">Sign In</a></li>
-                  <li class="col-sm-6"><a href="/accounts/signup" class="btn btn-primary btn-block">Sign up</a></li>
+                  <div class="blogin">
+                  <li class="title1">You Need To Log-In</li><br>
+                  <li class="col-sm-6"><a href="/accounts/signin" class="btn btn-primary btn-block" style="color: white;">Sign In</a></li>
+                  <li class="col-sm-6"><a href="/accounts/signup" class="btn btn-primary btn-block" style="color: white;">Sign up</a></li>
                   </div>
+
+                  <div class="alogin">
                   <div>
-                  <div class="title">
+                  <div class="title1">
                   <li style="font-size: 20px;">Rahul Arora</li>
                     <li class="email">rhlrr64@gmail.com</li>
                   </div>
                   <li><a href="/accounts/orders">Orders</a></li>
                   <li><a href="/accounts/wishlist">Wishlist</a></li>
-                  <li><a href="/accounts/cart">Cart</a></li>
+                  <li><a href="/home/cart">Cart</a></li>
                   <li><a href="/accounts/profile">Profile</a></li>
                   <li><a href="/home/inedx">Logout</a></li>
                   </div>
+                    </div>
 
                 </ul>
               </li>
@@ -232,10 +244,10 @@
               <li>
                 <div class="row">
                   <div class="col-sm-6">
-                    <a href="/accounts/cart" class="btn btn-primary btn-block">View Cart</a>
+                    <a href="/home/cart" class="btn btn-primary btn-block">View Cart</a>
                   </div>
                   <div class="col-sm-6">
-                    <a href="/home/checkout" class="btn btn-primary btn-block">Checkout</a>
+                    <a href="/checkout/checkout" class="btn btn-primary btn-block">Checkout</a>
                   </div>
                 </div>
               </li>
@@ -298,9 +310,9 @@
           <h4>Information</h4>
           <ul class="list-unstyled">
             <li><a href="about-shop.html">About Us</a></li>
-            <li><a href="stores.html">Our Stores</a></li>
-            <li><a href="terms-conditions.html">Terms & Conditions</a></li>
-            <li><a href="privacy-policy.html">Privacy Policy</a></li>
+            <li><a href="/home/stores">Our Stores</a></li>
+            <li><a href="/home/tac">Terms & Conditions</a></li>
+            <li><a href="/home/privacy">Privacy Policy</a></li>
             <li><a href="faq.html">FAQ</a></li>
           </ul>
         </div>
