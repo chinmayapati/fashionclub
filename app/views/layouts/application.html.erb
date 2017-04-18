@@ -55,12 +55,25 @@
       }
 
 
-      .alogin{
-        display: none;
+    #hover-content{
+
+      display: block;
+      overflow: hidden;
+      margin-left: 100px;
+      max-height: 0;
+      opacity: 0;
+      transition: max-height 1s, opacity 0.5s;
+      -webkit-transition: max-height 1s, opacity 0.5s;
+    }
+
+      #accessories:hover #hover-content{
+        max-height: 500px;
+        opacity: 1;
+
       }
 
-      .blogin{
-        display: non;
+      .visited:visited{
+        color: white !important;
       }
   </style>
 
@@ -76,308 +89,13 @@
 </head>
 <body>
 
-<div id="scrolltop" class="hidden-xs"><i class="fa fa-angle-up"></i></div>
-
-<div id="page-wrapper"> <!-- PAGE - START -->
-
-  <!-- ==========================
-      HEADER - START
-  =========================== -->
-  <div class="top-header hidden-xs">
-    <div class="container">
-      <div class="row">
-        <div class="col-sm-5">
-          <ul class="list-inline contacts">
-            <li><i class="fa fa-envelope"></i> help@fa.com</li>
-            <li><i class="fa fa-phone"></i> +114 356 3567</li>
-          </ul>
-        </div>
-        <div class="col-sm-7 text-right">
-          <ul class="list-inline links">
-            <li><a href="/home/cart">Cart</a></li>
-            <li><a href="/home/wishlist">Wishlist <span>(5)</span></a></li>
-            <li><a href="/users/signin">Sign In</a></li>
-            <li><a href="/users/signup">Sign Up</a></li>
-            <li style="display: none;"><a href="/home/index">Logout</a></li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </div>
-  <header class="navbar navbar-default navbar-static-top">
-    <div class="container">
-      <div class="navbar-header">
-        <a href="/home/index" class="navbar-brand"><span>fashion</span>Club</a>
-        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"><i
-        class="fa fa-bars"></i></button>
-      </div>
-      <div class="navbar-collapse collapse">
-        <p class="navbar-text hidden-xs hidden-sm">There is no end to fashion</p>
-        <ul class="nav navbar-nav navbar-right">
-          <li class="dropdown">
-            <a href="/home/index">Home <span><i class="fa fa-home"></i></span></a>
-          </li>
-          <li class="dropdown megamenu">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown"
-               data-delay="300" data-close-others="true">Shopping <span><i class="fa fa-cart-arrow-down"></i></span></a>
-            <ul class="dropdown-menu">
-              <li class="col-sm-4 col-md-3">
-                <ul class="list-unstyled">
-                  <li class="title">Men <span class="label label-danger pull-right">HOT</span></li>
-                  <li><a href="/home/product">Sweatshirts & Jackets</a></li>
-                  <li><a href="/home/product">Caps and Hats</a></li>
-                  <li><a href="/home/product">Ties</a></li>
-                  <li><a href="/home/product">Scarves</a></li>
-                  <li><a href="/home/product">Shirts</a></li>
-                  <li><a href="/home/product">Jeans</a></li>
-                </ul>
-              </li>
-              <li class="col-sm-4 col-md-3">
-                <ul class="list-unstyled">
-                  <li class="title">Women <span
-                  class="label label-info pull-right">30% OFF SALE</span></li>
-                  <li><a href="/home/product">Jackets & Coats</a></li>
-                  <li><a href="/home/product">Jumpers & cardigans</a></li>
-                  <li><a href="/home/product">Jeans</a></li>
-                  <li><a href="/home/product">Trousers</a></li>
-                  <li><a href="/home/product">Dresses</a></li>
-                  <li><a href="/home/product">Long Sleeve Tops</a></li>
-                </ul>
-              </li>
-              <li class="col-sm-4 col-md-3">
-                <ul class="list-unstyled">
-                  <li class="title">Accessories</li>
-                  <li><a href="/home/product">Sunglasses</a></li>
-                  <li><a href="/home/product">Watches</a></li>
-                  <li><a href="/home/product">Umbrellas</a></li>
-                  <li><a href="/home/product">Bags & Wallets</a></li>
-                  <li><a href="/home/product">Fashion Jewellery</a></li>
-                  <li><a href="/home/product">Belts</a></li>
-                </ul>
-              </li>
-              <li class="hidden-xs hidden-sm col-md-3">
-                <img src="/assets/images/megamenu.png" class="img-responsive center-block" alt="">
-              </li>
-            </ul>
-          </li>
-          <li class="dropdown megamenu">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown"
-               data-delay="300" data-close-others="true">My Account <span><i class="fa fa-user"></i></span></a>
-            <ul class="dropdown-menu quick-action">
-              <li class="col-sm-12">
-                <ul class="list-unstyled text-center">
-                  <div class="blogin">
-                  <li class="title1">You Need To Log-In</li><br>
-                  <li class="col-sm-6"><a href="/accounts/signin" class="btn btn-primary btn-block" style="color: white;">Sign In</a></li>
-                  <li class="col-sm-6"><a href="/accounts/signup" class="btn btn-primary btn-block" style="color: white;">Sign up</a></li>
-                  </div>
-
-                  <div class="alogin">
-                  <div>
-                  <div class="title1">
-                  <li style="font-size: 20px;">Rahul Arora</li>
-                    <li class="email">rhlrr64@gmail.com</li>
-                  </div>
-                  <li><a href="/accounts/orders">Orders</a></li>
-                  <li><a href="/accounts/wishlist">Wishlist</a></li>
-                  <li><a href="/home/cart">Cart</a></li>
-                  <li><a href="/accounts/profile">Profile</a></li>
-                  <li><a href="/home/inedx">Logout</a></li>
-                  </div>
-                    </div>
-
-                </ul>
-              </li>
-            </ul>
-          </li>
-          <!-- CART START -->
-          <li class="dropdown navbar-cart hidden-xs">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="300" data-close-others="true"><i class="fa fa-shopping-cart"><span class="badge"> 5 </span></i></a>
-            <ul class="dropdown-menu">
-
-              <!-- CART ITEM - START -->
-              <li>
-                <div class="row">
-                  <div class="col-sm-3">
-                    <img src="/assets/images/products/product-1.jpg" class="img-responsive" alt="">
-                  </div>
-                  <div class="col-sm-9">
-                    <h4><a href="/home/single_product">Fusce Aliquam</a></h4>
-                    <p>1x - $20.00</p>
-                    <a href="#" class="remove"><i class="fa fa-times-circle"></i></a>
-                  </div>
-                </div>
-              </li>
-              <!-- CART ITEM - END -->
-
-              <!-- CART ITEM - START -->
-              <li>
-                <div class="row">
-                  <div class="col-sm-3">
-                    <img src="/assets/images/products/product-2.jpg" class="img-responsive" alt="">
-                  </div>
-                  <div class="col-sm-9">
-                    <h4><a href="/home/single_product">Fusce Aliquam</a></h4>
-                    <p>1x - $20.00</p>
-                    <a href="#" class="remove"><i class="fa fa-times-circle"></i></a>
-                  </div>
-                </div>
-              </li>
-              <!-- CART ITEM - END -->
-
-              <!-- CART ITEM - START -->
-              <li>
-                <div class="row">
-                  <div class="col-sm-3">
-                    <img src="/assets/images/products/product-3.jpg" class="img-responsive" alt="">
-                  </div>
-                  <div class="col-sm-9">
-                    <h4><a href="/home/single_product">Fusce Aliquam</a></h4>
-                    <p>1x - $20.00</p>
-                    <a href="#" class="remove"><i class="fa fa-times-circle"></i></a>
-                  </div>
-                </div>
-              </li>
-              <!-- CART ITEM - END -->
-
-              <!-- CART ITEM - START -->
-              <li>
-                <div class="row">
-                  <div class="col-sm-6">
-                    <a href="/home/cart" class="btn btn-primary btn-block">View Cart</a>
-                  </div>
-                  <div class="col-sm-6">
-                    <a href="/checkout/checkout" class="btn btn-primary btn-block">Checkout</a>
-                  </div>
-                </div>
-              </li>
-              <!-- CART ITEM - END -->
-
-            </ul>
-          </li>
-          <!-- CART END -->
-       <!--   <li class="dropdown navbar-search hidden-xs">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-search"></i></a>
-            <ul class="dropdown-menu">
-              <li>
-                <form>
-                  <div class="input-group input-group-lg">
-                    <input type="text" class="form-control" placeholder="Search ...">
-                                        <span class="input-group-btn">
-                                            <button class="btn btn-primary" type="button">Search</button>
-                                        </span>
-                  </div>
-                </form>
-              </li>-->
-
-            </ul>
-          </li>
-          </ul>
-      </div>
-    </div>
-  </header>
-  <!-- ==========================
-    HEADER - END
-  =========================== -->
+<%= render 'layouts/header' %>
 
 <%= yield %>
 
-<!-- ==========================
-  FOOTER - START
-=========================== -->
-<footer class="navbar navbar-default">
-  <div class="container">
-    <div class="row">
-      <div class="col-sm-3 col-xs-6">
-        <div class="footer-widget footer-widget-contacts">
-          <h4>Contacts</h4>
-          <ul class="list-unstyled">
-            <li><i class="fa fa-envelope"></i> help@fashionclub.com</li>
-            <li><i class="fa fa-phone"></i> +114 356 3567</li>
-            <li><i class="fa fa-map-marker"></i> MBD Neopolis, Jalandhar<br /><span style="margin-left: 15%;">Punjab 144411</span></li>
-            <li class="social">
-              <a href="#"><i class="fa fa-facebook"></i></a>
-              <a href="#"><i class="fa fa-twitter"></i></a>
-              <a href="#"><i class="fa fa-instagram"></i></a>
-              <a href="#"><i class="fa fa-linkedin"></i></a>
-              <a href="#"><i class="fa fa-tumblr"></i></a>
-            </li>
-          </ul>
-        </div>
-      </div>
-      <div class="col-sm-3 col-xs-6">
-        <div class="footer-widget footer-widget-links">
-          <h4>Information</h4>
-          <ul class="list-unstyled">
-            <li><a href="about-shop.html">About Us</a></li>
-            <li><a href="/home/stores">Our Stores</a></li>
-            <li><a href="/home/tac">Terms & Conditions</a></li>
-            <li><a href="/home/privacy">Privacy Policy</a></li>
-            <li><a href="faq.html">FAQ</a></li>
-          </ul>
-        </div>
-      </div>
-      <div class="col-sm-3 col-xs-6">
-        <div class="footer-widget footer-widget-twitter">
-          <h4>Customer Views</h4>
-          <div id="footer-widget">
-            <ul class="list-unstyled reviews" >
-              <li>
-                <p>fashionClub has all new arrivals before any other store. I love shopping, so I love fashionClub.<span>- Mark Antony</span></p>
-              </li>
-              <li>
-                <p>fashionClub is the new brand name for fashion world. It just does a magic on your shopping experience.<span>- John Hep</span></p>
-              </li>
-            </ul>
+<% #debug(params) if Rails.env.development? %>
 
-          </div>
-        </div>
-      </div>
-      <div class="col-sm-3 col-xs-6">
-        <div class="footer-widget footer-widget-facebook">
-          <h4>Facebook Page</h4>
-          <ul class="list-unstyled row row-no-padding">
-            <li class="col-xs-3"><a href="#"><img src="/assets/images/avatar/avatar_01.jpg"
-                                                  class="img-responsive" alt=""></a></li>
-            <li class="col-xs-3"><a href="#"><img src="/assets/images/avatar/avatar_02.jpg"
-                                                  class="img-responsive" alt=""></a></li>
-            <li class="col-xs-3"><a href="#"><img src="/assets/images/avatar/avatar_03.jpg"
-                                                  class="img-responsive" alt=""></a></li>
-          </ul>
-                        <span class="like">45,500 Likes <a href="#" class="btn btn-default btn-sm">
-                            <i class="fa fa-thumbs-up"></i>Like</a></span>
-          </p>
-        </div>
-      </div>
-    </div>
-    <div class="footer-bottom">
-      <div class="row">
-        <div class="col-sm-6">
-          <p class="copyright">© fashionClub 2016 All right reserved.</p>
-          <p class="copyright">Designed by <a href="http://www.pixelized.cz/" target="_blank">Pixelized
-            Studio.</a></p>
-        </div>
-        <div class="col-sm-6">
-          <ul class="list-inline payment-methods">
-            <li><i class="fa fa-cc-amex"></i></li>
-            <li><i class="fa fa-cc-diners-club"></i></li>
-            <li><i class="fa fa-cc-discover"></i></li>
-            <li><i class="fa fa-cc-jcb"></i></li>
-            <li><i class="fa fa-cc-mastercard"></i></li>
-            <li><i class="fa fa-cc-paypal"></i></li>
-            <li><i class="fa fa-cc-stripe"></i></li>
-            <li><i class="fa fa-cc-visa"></i></li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </div>
-</footer>
-<!-- ==========================
-  FOOTER - END
-=========================== -->
-
-</div> <!-- PAGE - END -->
+<%= render 'layouts/footer' %>
 
 <!-- ==========================
  JS

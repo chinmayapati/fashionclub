@@ -1,22 +1,30 @@
 Rails.application.routes.draw do
 
+  get 'recover/recover'
+
+  get 'recover/show'
+
+  root 'home#index'
+
   get 'checkout/checkout'
-
   get 'checkout/checkout_payment'
-
   get 'checkout/checkout_review'
-
   get 'checkout/check'
 
   # Accounts Routes
   get 'accounts/dashboard'
   get 'accounts/profile'
+  post 'accounts/profile'
+  post 'accounts/create'
   get 'accounts/address'
+  post 'accounts/address'
   get 'accounts/addaddress'
+  post 'accounts/addaddress'
   get 'accounts/orders'
   get 'accounts/singleorder'
   get 'accounts/wishlist'
   get 'accounts/warranty'
+  resources :accounts
 
   # Home Routes
   get 'home' => 'home#index'
@@ -24,20 +32,30 @@ Rails.application.routes.draw do
   get 'home/index'
   get 'home/cart'
   get 'home/checkout'
+  get 'home/review'
+  post 'home/review'
+  get 'home/payment'
   get 'home/single_product'
   get 'home/stores'
   get 'home/tac'
   get 'home/privacy'
-  # Users Routes
-  get 'users' => 'users#signin'
-  get 'users/signin'
-  get 'users/signup'
-  get 'users/recover'
+  get 'home/faq'
+  get 'home/aboutus'
+
+  # Sign up Routes
+  get 'signup' =>  'signup#index'
+  resources :signup
+
+  # Sign in Routes
+  get 'signin' => 'signin#index'
+  post 'signin' => 'signin#create'
+  delete 'logout' => 'signin#destroy'
+
+
+  get 'recover' =>'recover#index'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
-
-  root 'home#index'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

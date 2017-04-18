@@ -30,76 +30,100 @@
       <div class="col-sm-12">
         <article class="account-content">
 
-          <form>
-            <div class="products-order shopping-cart">
-              <div class="table-responsive">
-                <table class="table table-products">
-                  <thead>
-                  <tr>
-                    <th></th>
-                    <th>Product</th>
-                    <th>Unit Price</th>
-                    <th>Quantity</th>
-                    <th>Subtotal</th>
-                    <th></th>
-                  </tr>
-                  </thead>
-                  <tbody>
-                  <tr>
-                    <td class="col-xs-1"><img src="/assets/images/products/product-1.jpg" alt="" class="img-responsive"></td>
-                    <td class="col-xs-4 col-md-5"><h4><a href="single-product.html">Fusce Aliquam</a><small>M, Black, Esprit</small></h4></td>
-                    <td class="col-xs-2 text-center"><span>$30</span></td>
-                    <td class="col-xs-2 col-md-1"><div class="form-group"><input type="text" class="form-control" value="2"></div></td>
-                    <td class="col-xs-2 text-center"><span><b>$60</b></span></td>
-                    <td class="col-xs-1 text-center"><a href="#" class="btn btn-primary"><i class="fa fa-times"></i></a></td>
-                  </tr>
-                  <tr>
-                    <td class="col-xs-1"><img src="/assets/images/products/product-2.jpg" alt="" class="img-responsive"></td>
-                    <td class="col-xs-4 col-md-5"><h4><a href="single-product.html">Fusce Aliquam</a><small>M, Black, Esprit</small></h4></td>
-                    <td class="col-xs-2 text-center"><span>$80</span></td>
-                    <td class="col-xs-2 col-md-1"><div class="form-group"><input type="text" class="form-control" value="2"></div></td>
-                    <td class="col-xs-2 text-center"><span><b>$160</b></span></td>
-                    <td class="col-xs-1 text-center"><a href="#" class="btn btn-primary"><i class="fa fa-times"></i></a></td>
-                  </tr>
-                  <tr>
-                    <td class="col-xs-1"><img src="/assets/images/products/product-3.jpg" alt="" class="img-responsive"></td>
-                    <td class="col-xs-4 col-md-5"><h4><a href="single-product.html">Fusce Aliquam</a><small>M, Black, Esprit</small></h4></td>
-                    <td class="col-xs-2 text-center"><span>$95</span></td>
-                    <td class="col-xs-2 col-md-1"><div class="form-group"><input type="text" class="form-control" value="1"></div></td>
-                    <td class="col-xs-2 text-center"><span><b>$95</b></span></td>
-                    <td class="col-xs-1 text-center"><a href="#" class="btn btn-primary"><i class="fa fa-times"></i></a></td>
-                  </tr>
-                  </tbody>
-                </table>
-              </div>
-              <a href="/home/index" class="btn btn-inverse">Continue Shopping</a>
-              <a href="#" class="btn btn-inverse update-cart">Update Shopping Cart</a>
-            </div>
+          <div class="products-order shopping-cart">
+            <div class="table-responsive">
+              <table class="table table-products">
+                <thead>
+                <tr>
+                  <th></th>
+                  <th>Product</th>
+                  <th>Unit Price</th>
+                  <th>Quantity</th>
+                  <th>Subtotal</th>
+                  <th></th>
+                </tr>
+                </thead>
+                <tbody>
 
-            <div class="box">
-              <div class="row">
-                <div class="col-sm-6">
-                  <h5>Enter your coupon code if you have one.</h5>
-                  <div class="input-group">
-                    <input type="email" class="form-control" placeholder="Discount code">
-                                            <span class="input-group-btn">
-                                                <button class="btn btn-primary" type="button">Apply Coupon</button>
-                                            </span>
+                <% if !@cart_data.empty?
+                     total = discount = totaldiscount = 0
+
+                     @cart_data.each do |c, p|
+                       totaldiscount += (((p.discount/100.0)*p.price).to_i) *c.quantity.to_i
+                       total += p.price.to_i*c.quantity.to_i
+                       discountprice= p.price-((p.discount/100.0)*p.price).to_i
+                %>
+
+                        <tr>
+                          <td class="col-xs-1">
+                            <img src="/assets/images/products/<%= p.images %>/1.jpg" alt="" class="img-responsive"></td>
+                          <td class="col-xs-4 col-md-5">
+                            <h4><%= link_to p.name, {action: 'single_product', controller: 'home', pid: c.product_id} %>
+                              <span> (<%= c.size.upcase %>) </span>
+                              <small><%= p.brand.upcase %></small>
+                            </h4>
+                          </td>
+                          <!-- unit price -->
+                          <td class="col-xs-2 text-center">
+                            <strike><span>Rs <%= p.price.to_i %></span></strike><span> Rs <%= discountprice %></span>
+                          </td>
+                          <td class="col-xs-2 col-md-1">
+                            <div class="form-group">
+                              <input type="hidden" class="cart_id" value="<%= c.id %>">
+                              <input type="number" class="form-control quantity" value="<%= c.quantity %>">
+                            </div>
+                          </td>
+                          <td class="col-xs-2 text-center">
+                            <span>
+                              <b class="subtotal">Rs <%= discountprice*c.quantity.to_i %></b>
+                            </span>
+                          </td>
+                          <td class="col-xs-1 text-center">
+                            <a href="#" class="btn btn-primary" onclick="deleteItem(<%= c.id %>);"><i class="fa fa-times"></i></a>
+                          </td>
+                        </tr>
+                    <% end %>
+
+
+                <% else %>
+
+                    <tr>
+                      <td colspan="5" class="text-center"><h3>You haven't added any item in the cart.</h3></td>
+                    </tr>
+                <% end %>
+                </tbody>
+
+              </table>
+            </div>
+            <a href="/" class="btn btn-inverse">Continue Shopping</a>
+            <a href="#" class="btn btn-inverse update-cart">Update Shopping Cart</a>
+          </div>
+
+          <% if !@cart_data.empty? %>
+              <div class="box">
+                <div class="row">
+                  <div class="col-sm-6">
+                    <h5>Enter your coupon code if you have one.</h5>
+                    <div class="input-group">
+                      <input type="email" class="form-control" placeholder="Discount code">
+                      <span class="input-group-btn">
+                          <button class="btn btn-primary" type="button">Apply Coupon</button>
+                      </span>
+                    </div>
+                  </div>
+                  <div class="col-sm-4 col-sm-offset-2">
+                    <ul class="list-unstyled order-total">
+                      <li>Total price<span id="totalamt">Rs <%= total %></span></li>
+                      <li>Discount<span id="discount">- Rs <%= totaldiscount %></span></li>
+                      <li>Subtotal<span class="total" id="amount">Rs <%= total-totaldiscount %></span></li>
+                    </ul>
                   </div>
                 </div>
-                <div class="col-sm-4 col-sm-offset-2">
-                  <ul class="list-unstyled order-total">
-                    <li>Total products<span>$315.00</span></li>
-                    <li>Discount<span>- $25.00</span></li>
-                    <li>Subtotal<span class="total">$290.00</span></li>
-                  </ul>
-                </div>
               </div>
-            </div>
-            <div class="clearfix">
-              <a href="/checkout/checkout" class="btn btn-primary btn-lg pull-right ">Checkout</a>
-            </div>
-          </form>
+              <div class="clearfix">
+                <a href="/home/checkout" class="btn btn-primary btn-lg pull-right ">Checkout</a>
+              </div>
+          <% end %>
 
         </article>
       </div>
@@ -109,3 +133,56 @@
 <!-- ==========================
   MY ACCOUNT - END
 =========================== -->
+<script>
+  $('.quantity').keyup(function () {
+    //var unit_price = $(this).siblings("input[type='hidden']").val();
+    //var subtotal = $(this).siblings('.subtotal_inp').val();
+    //var units = $(this).val();
+    //var cart_id = $(this).siblings('.cart_id').val();
+  });
+
+  $('.update-cart').click(function () {
+
+    var cart_ids = [];
+    var quantities = [];
+
+    $('.quantity').each(function () {
+      quantities.push(parseInt($(this).val()));
+    });
+    $('.cart_id').each(function () {
+      cart_ids.push(parseInt($(this).val()));
+    });
+
+    /* Making an AJAX call to update cart */
+    $.ajax({
+      type: "GET",
+      url: "/home/cart",
+      data: {
+        cart_id: cart_ids, quantity: quantities
+      },
+      success: function (response) {
+        window.location.href = '/home/cart';
+      },
+      error: function (e) {
+        window.location.href = '/home/cart';
+      }
+    });
+  });
+
+  function deleteItem(cart_id) {
+    $.ajax({
+      type: "GET",
+      url: "/home/cart",
+      data: {
+        cart_id: cart_id
+      },
+      success: function (response) {
+        window.location.href = '/home/cart';
+      },
+      error: function (e) {
+        alert('Some error occurred while deleting item! ');
+      }
+    });
+  }
+
+</script>

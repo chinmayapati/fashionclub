@@ -1,0 +1,78 @@
+<!-- ==========================
+  MY ACCOUNT - START
+=========================== -->
+<section class="content account">
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-3">
+        <aside class="sidebar">
+
+          <!-- WIDGET:CATEGORIES - START -->
+          <div class="widget widget-navigation">
+            <ul class="nav nav-pills nav-stacked">
+              <li><a href="/accounts/dashboard">Account Dashboard</a></li>
+              <li><a href="/accounts/profile">Personal Infromation</a></li>
+              <li><a href="/accounts/address">My Address</a></li>
+              <li><a href="/accounts/orders">My Orders</a></li>
+              <li class="active"><a href="/accounts/wishlist">Wishlist</a></li>
+              <li><a href="/home/index">Back to Shop</a></li>
+            </ul>
+          </div>
+          <!-- WIDGET:CATEGORIES - END -->
+
+        </aside>
+      </div>
+      <div class="col-sm-9">
+        <article class="account-content">
+          <h3>Wishlist</h3>
+          <div class="table-responsive">
+            <table class="table table-products">
+              <thead>
+              <tr>
+                <th></th>
+                <th>Product</th>
+                <th>Discount</th>
+                <th>Subtotal</th>
+                <th></th>
+              </tr>
+              </thead>
+              <tbody>
+              <% if !@wishlist_items.nil? %>
+                  <% for items in @wishlist_items %>
+                      <!-- Product Start -->
+                      <tr>
+                        <td class="col-xs-1">
+                          <img src="/assets/images/products/product-1.jpg" alt="" class="img-responsive">
+                        </td>
+                        <td class="col-xs-4 col-md-5">
+                          <h4><a href="single-product.html"><%= items.name %></a>
+                            <small><%= items.tags.upcase %></small>
+                          </h4>
+                        </td>
+                        <td class="col-xs-2 col-md-1 text-center"><span style="text-decoration: line-through;">Rs <%= items.price %></span>&nbsp;<span><b><%= "(#{items.discount}%)" %></b></span></td>
+                        <td class="col-xs-2 text-center"><span><b>Rs <%= items.price.to_i - items.price.to_i*items.discount.to_i/100 %></b></span></td>
+                        <td class="col-xs-2 text-center">
+                          <a href="#" class="btn btn-primary"><i class="fa fa-shopping-cart"></i></a><a href="/accounts/wishlist?clear=<%= items.w_id %>" class="btn btn-primary"><i class="fa fa-times"></i></a>
+                        </td>
+                      </tr>
+                      <!-- Product End -->
+                  <% end %>
+              <% else %>
+                  <tr>
+                    <td colspan="4">You haven't added any item in wishlist!</td>
+                  </tr>
+              <% end %>
+              </tbody>
+            </table>
+          </div>
+          <% unless @wishlist_items.nil? %>
+              <a href="/accounts/wishlist?clear=a" class="btn btn-primary">Clear All</a>
+          <% end %>
+        </article>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- ==========================
+  MY ACCOUNT - END
+=========================== -->

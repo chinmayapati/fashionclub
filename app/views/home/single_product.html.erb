@@ -5,15 +5,15 @@
   <div class="container">
     <div class="row">
       <div class="col-xs-6">
-        <h2>Women</h2>
-        <p>Fusce Aliquam</p>
+        <h2><%= @category_c %></h2>
+        <p><%= @brand %></p>
       </div>
       <div class="col-xs-6">
         <ol class="breadcrumb">
-          <li><a href="index-2.html">Home</a></li>
-          <li><a href="products.html">Women</a></li>
-          <li><a href="products.html">Dresses</a></li>
-          <li class="active">Fusce Aliquam</li>
+          <li><a href="/home/index">Home</a></li>
+          <li><a href="#"> <%= @category_c %> </a></li>
+          <li><a href="#"><%= @sub_cat_c %></a></li>
+          <li class="active"><%= @brand %></li>
         </ol>
       </div>
     </div>
@@ -22,6 +22,9 @@
 <!-- ==========================
     BREADCRUMB - END
   =========================== -->
+
+
+
 
 <!-- ==========================
   PRODUCTS - START
@@ -33,42 +36,66 @@
         <div class="col-xs-4">
           <div class="product-carousel-wrapper">
             <div id="product-carousel">
-              <div class="item"><img src="/assets/images/products/product-1.jpg" class="img-responsive" alt=""></div>
-              <div class="item"><img src="/assets/images/products/product-2.jpg" class="img-responsive" alt=""></div>
-              <div class="item"><img src="/assets/images/products/product-3.jpg" class="img-responsive" alt=""></div>
-              <div class="item"><img src="/assets/images/products/product-4.jpg" class="img-responsive" alt=""></div>
+              <div class="item">
+                <img src="/assets/images/products/<%= @image_path %>/1.jpg" class="img-responsive" alt=""></div>
+              <div class="item">
+                <img src="/assets/images/products/<%= @image_path %>/2.jpg" class="img-responsive" alt=""></div>
+              <div class="item">
+                <img src="/assets/images/products/<%= @image_path %>/3.jpg" class="img-responsive" alt=""></div>
+              <div class="item">
+                <img src="/assets/images/products/<%= @image_path %>/4.jpg" class="img-responsive" alt=""></div>
             </div>
           </div>
         </div>
         <div class="col-xs-8">
           <div class="product-body">
-            <h3>Fusce Aliquam</h3>
+            <h3> <%= @name %></h3>
+            <p><%= @category_c %></p>
             <div class="product-labels">
-              <span class="label label-info">new</span>
-              <span class="label label-danger">sale</span>
+              <% if @discount==0 %>
+                  <span class="label label-info">new</span>
+              <% else %>
+                  <span class="label label-danger">sale</span>
+              <% end %>
             </div>
+
             <div class="product-rating">
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star-o"></i>
-              <i class="fa fa-star-o"></i>
+              <% $i=0 %>
+              <% while $i < @rating do %>
+                  <i class="fa fa-star"></i>
+                  <% $i+=1 %>
+              <% end %>
+
+              <% while $i < 5 %>
+                  <i class="fa fa-star-o"></i>
+                  <% $i+=1 %>
+              <% end %>
+
+
             </div>
                             <span class="price">
-                                <del><span class="amount">$36.00</span></del>
-                                <ins><span class="amount">$30.00</span></ins>
+                                <del><span class="amount"><%= @price %> Rs</span></del>
+                                <ins><span class="amount"><%= @after_discount %> Rs</span></ins>
                             </span>
             <ul class="list-unstyled product-info">
-              <li><span>ID</span>U-187423</li>
-              <li><span>Availability</span>In Stock</li>
-              <li><span>Brand</span>Esprit</li>
-              <li><span>Tags</span>Dress, Black, Women</li>
+              <li><span>ID</span><%= @id %></li>
+
+              <input type="hidden" value="<%= @id %>" id="proid">
+
+              <% if @stock==0 %>
+                  <li><span>Availability</span>Out of Stock</li>
+              <% else %>
+                  <li><span>Availability</span>In Stock</li>
+              <% end %>
+
+              <li><span>Brand</span><%= @brand %></li>
+              <li><span>Tags</span><%= @tags +","+@brand %></li>
             </ul>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut feugiat mauris eget magna egestas porta. Curabitur sagittis sagittis neque rutrum congue. Donec lobortis dui sagittis, ultrices nunc ornare, ultricies elit. Curabitur tristique felis pulvinar nibh porta. </p>
+            <p> <%= @brief %> </p>
             <div class="product-form clearfix">
               <div class="row row-no-padding">
 
-                <div class="col-md-3 col-sm-4">
+                <div class="col-md-3 col-sm-2">
                   <div class="product-quantity clearfix">
                     <a class="btn btn-default" id="qty-minus">-</a>
                     <input type="text" class="form-control" id="qty" value="1">
@@ -76,53 +103,45 @@
                   </div>
                 </div>
 
-                <div class="col-md-3 col-sm-4">
+                <div class="col-md-2 col-sm-2">
                   <div class="product-size">
                     <form class="form-inline">
                       <div class="form-group">
                         <label>Size:</label>
                       </div>
-                      <div class="form-group">
-                        <select class="form-control">
-                          <option>XS</option>
-                          <option>S</option>
-                          <option selected="selected">M</option>
-                          <option>L</option>
-                          <option>XL</option>
-                          <option>XXL</option>
+                      <div class="form-group ">
+                        <select class="form-control" id="size">
+
+                          <% @sizes.each { |x| %>
+
+                              <% if @array[@sizes.index(x)] == 0 %>
+                                  <option disabled><%= x.upcase %></option>
+                              <% else %>
+                                  <option value="<%= x %>"><%= x.upcase %></option>
+                              <% end %>
+                          <% } %>
                         </select>
                       </div>
                     </form>
                   </div>
                 </div>
 
-                <div class="col-md-3 col-sm-4">
-                  <div class="product-color">
-                    <form class="form-inline">
-                      <div class="form-group">
-                        <label>Color:</label>
-                      </div>
-                      <div class="form-group">
-                        <select class="form-control">
-                          <option selected="selected">Black</option>
-                          <option>White</option>
-                          <option>Red</option>
-                          <option>Yellow</option>
-                        </select>
-                      </div>
-                    </form>
-                  </div>
+
+                <div class="col-md-4 col-sm-2">
+                  <% if !params[:selectsize].nil? and !params[:selectsize].empty? and params[:selectsize]=="false" %>
+                      <h4> * Select Your Size</h4>
+                  <% end %>
                 </div>
 
                 <div class="col-md-3 col-sm-12">
-                  <a href="#" class="btn btn-primary add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+                  <a href="#" class="btn btn-primary add-to-cart" id="addcart"><i class="fa fa-shopping-cart"></i>Add to
+                    cart</a>
                 </div>
 
               </div>
             </div>
             <ul class="list-inline product-links">
-              <li><a href="#"><i class="fa fa-heart"></i>Add to wishlist</a></li>
-              <li><a href="#"><i class="fa fa-exchange"></i>Compare</a></li>
+              <li><a href="#" id="addwishlist"><i class="fa fa-heart"></i>Add to wishlist</a></li>
               <li><a href="#"><i class="fa fa-envelope"></i>Email to friend</a></li>
             </ul>
           </div>
@@ -132,25 +151,27 @@
 
     <div class="tabs product-tabs">
       <ul class="nav nav-tabs" role="tablist">
-        <li role="presentation" class=""><a href="#description" role="tab" data-toggle="tab" aria-controls="description" aria-expanded="false">Description</a></li>
-        <li role="presentation" class="active"><a href="#reviews" role="tab" data-toggle="tab" aria-controls="reviews" aria-expanded="true">Reviews (25)</a></li>
-        <li role="presentation" class=""><a href="#video" role="tab" data-toggle="tab" aria-controls="video" aria-expanded="false">Responsive Video</a></li>
+        <li role="presentation" class="active">
+          <a href="#description" role="tab" data-toggle="tab" aria-controls="description" aria-expanded="false">Description</a>
+        </li>
+        <li role="presentation" class="">
+          <a href="#reviews" role="tab" data-toggle="tab" aria-controls="reviews" aria-expanded="true">Reviews (3)</a>
+        </li>
+        <li role="presentation" class="">
+          <a href="#video" role="tab" data-toggle="tab" aria-controls="video" aria-expanded="false">Responsive Video</a>
+        </li>
       </ul>
       <div class="tab-content">
-        <div role="tabpanel" class="tab-pane" id="description">
-          <h4>Etiam posuere id nulla</h4>
-          <p>Ut arcu ipsum, cursus vitae ligula id, semper sodales mauris. Etiam posuere id nulla lacinia convallis. Sed tortor nisi, semper a auctor id, aliquet et sem. Aliquam suscipit lectus ut arcu pretium, et malesuada tortor finibus. Pellentesque sed arcu nec lectus vulputate pharetra. Vestibulum lobortis dolor massa, et tristique ex tincidunt at. Donec imperdiet elit elit, sit amet posuere dui auctor id. Nullam vel augue varius, ornare purus a, mattis diam.</p>
-          <ul>
-            <li>Etiam posuere id nulla lacinia convallis</li>
-            <li>Sed tortor nisi, semper a auctor id, aliquet</li>
-            <li>Curabitur eros dui</li>
-          </ul>
-          <h5>Pellentesque vel felis pharetra</h5>
-          <p>Interdum et malesuada fames ac ante ipsum primis in faucibus. Curabitur eros dui, viverra nec nisl quis, aliquet auctor nisi. Pellentesque vel felis pharetra, accumsan purus eu, mattis est. Aliquam tincidunt efficitur nibh nec volutpat. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nulla ut nisl eu nisi vestibulum consectetur. Quisque egestas dolor neque, at bibendum lorem convallis sed. Maecenas finibus metus ante, non tristique sapien sagittis id. Nam et iaculis massa. Nulla facilisi. Integer at nunc neque. Phasellus posuere et nunc ac blandit. Mauris sollicitudin, sapien vitae luctus pellentesque, risus nunc mattis purus, sed laoreet ante leo congue sem. Etiam eget nisi ipsum. Phasellus consectetur vel turpis vitae eleifend.</p>
-          <h5>Phasellus et libero</h5>
-          <p>Interdum et malesuada fames ac ante ipsum primis in faucibus. Aliquam erat volutpat. Phasellus et libero nec ligula imperdiet viverra quis et turpis. Aenean quis mattis nunc. Mauris consectetur sed eros sed convallis. Morbi non elit in est tempus scelerisque congue a purus. In eget ullamcorper magna. Nam libero turpis, ullamcorper sit amet molestie nec, cursus ac urna. Suspendisse blandit finibus est, quis pulvinar arcu pretium vel. Aenean et leo nisi. Donec at iaculis ligula. Proin condimentum lobortis ex, in congue nisi molestie eget.</p>
+        <div role="tabpanel" class="tab-pane active in" id="description">
+          <h4>Product</h4>
+          <p><%= @desc1 %></p>
+
+          <h5>Material And Care</h5>
+          <p><%= @desc2 %></p>
+
         </div>
-        <div role="tabpanel" class="tab-pane active in" id="reviews">
+
+        <div role="tabpanel" class="tab-pane" id="reviews">
 
           <div class="comments">
 
@@ -165,7 +186,9 @@
                   <span class="date">20 July 2015</span>
                   <a data-toggle="modal" data-target="#add-review">Reply</a>
                 </div>
-                <p>Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.</p>
+                <p>Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo.
+                  Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi
+                  vulputate fringilla. Donec lacinia congue felis in faucibus.</p>
               </div>
             </div>
             <!-- REVIEW - END -->
@@ -181,54 +204,9 @@
                   <span class="date">20 July 2015</span>
                   <a data-toggle="modal" data-target="#add-review">Reply</a>
                 </div>
-                <p>Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.</p>
-
-                <!-- REVIEW - START -->
-                <div class="media">
-                  <div class="media-left">
-                    <img class="media-object" alt="" src="/assets/images/default-avatar.png">
-                  </div>
-                  <div class="media-body">
-                    <h3 class="media-heading">John Doe</h3>
-                    <div class="meta">
-                      <span class="date">20 July 2015</span>
-                    </div>
-                    <p>Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.</p>
-                  </div>
-                </div>
-                <!-- REVIEW - END -->
-
-                <!-- REVIEW - START -->
-                <div class="media">
-                  <div class="media-left">
-                    <img class="media-object" alt="" src="/assets/images/default-avatar.png">
-                  </div>
-                  <div class="media-body">
-                    <h3 class="media-heading">John Doe</h3>
-                    <div class="meta">
-                      <span class="date">20 July 2015</span>
-                    </div>
-                    <p>Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.</p>
-                  </div>
-                </div>
-                <!-- REVIEW - END -->
-
-              </div>
-            </div>
-            <!-- REVIEW - END -->
-
-            <!-- REVIEW - START -->
-            <div class="media">
-              <div class="media-left">
-                <img class="media-object" alt="" src="/assets/images/default-avatar.png">
-              </div>
-              <div class="media-body">
-                <h3 class="media-heading">John Doe</h3>
-                <div class="meta">
-                  <span class="date">20 July 2015</span>
-                  <a data-toggle="modal" data-target="#add-review">Reply</a>
-                </div>
-                <p>Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.</p>
+                <p>Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo.
+                  Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi
+                  vulputate fringilla. Donec lacinia congue felis in faucibus.</p>
               </div>
             </div>
             <!-- REVIEW - END -->
@@ -238,153 +216,133 @@
           <a class="btn btn-primary btn-lg" data-toggle="modal" data-target="#add-review">Add Review</a>
 
         </div>
+
         <div role="tabpanel" class="tab-pane" id="video">
           <div class="embed-responsive embed-responsive-16by9">
             <iframe allowfullscreen="" src="http://www.youtube.com/embed/M4z90wlwYs8?feature=player_detailpage"></iframe>
           </div>
         </div>
+
       </div>
     </div>
 
+
     <div class="releated-products">
       <h2>Related Products</h2>
+      <% count=0 %>
+      <% a=Product.where(brand: @brand).limit(4) %>
+      <% a=a.where.not(id: @id).order('created_at DESC') %>
+
+
       <div class="row grid" id="products">
 
         <!-- PRODUCT - START -->
-        <div class="col-sm-3 col-xs-6">
-          <article class="product-item">
-            <div class="row">
-              <div class="col-sm-3">
-                <div class="product-overlay">
-                  <div class="product-mask"></div>
-                  <a href="/home/single_product" class="product-permalink"></a>
-                  <img src="/assets/images/products/product-1.jpg" class="img-responsive" alt="">
-                  <div class="product-quickview">
-                    <a class="btn btn-quickview" data-toggle="modal" data-target="#product-quickview">Quick View</a>
+        <% a.each { |x| %>
+
+            <div class="col-sm-3 col-xs-6">
+              <article class="product-item">
+                <div class="row">
+                  <div class="col-sm-3">
+                    <div class="product-overlay">
+                      <div class="product-mask"></div>
+                      <a href="/home/single_product?pid=<%= x.id %>" class="product-permalink"></a>
+
+                      <img src="/assets/images/products/<%= x.images %>/1.jpg" class="img-responsive" alt="">
+                      <div class="product-quickview">
+                        <a class="btn btn-quickview quick" data-toggle="modal"
+                           data-image="<%= x.images %>" data-id="<%= x.id %>" data-price="<%= x.price %>" data-name="<%= x.name %>" data-brand="<%= x.brand %>"
+                           data-discount="<%= x.discount %>" data-tags="<%= x.tags %>" data-size="<%= x.sizes %>"
+                           data-target="#product-quickview">Quick
+                          View</a>
+                      </div>
+                    </div>
                   </div>
-                </div>
-              </div>
-              <div class="col-sm-9">
-                <div class="product-body">
-                  <h3>Lorem ipsum dolor sit amet consectetur</h3>
+                  <div class="col-sm-9">
+                    <div class="product-body">
+                      <h3><%= x.name %></h3>
+                      <div><%= x.brand %></div>
                                         <span class="price">
-                                            <del><span class="amount">$36.00</span></del>
-                                            <ins><span class="amount">$30.00</span></ins>
+                                            <del><span class="amount"><%= x.price %> Rs</span></del>
+                                            <ins><span class="amount"><%= x.price-((x.discount/100.0)*x.price).to_i %>
+                                              Rs</span></ins>
                                         </span>
-                  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut feugiat mauris eget magna egestas porta. Curabitur sagittis sagittis neque rutrum congue. Donec lobortis dui sagittis, ultrices nunc ornare, ultricies elit. Curabitur tristique felis pulvinar nibh porta. </p>
-                  <div class="buttons buttons-simple">
-                    <a href="#"><i class="fa fa-exchange"></i></a>
-                    <a href="#"><i class="fa fa-shopping-cart"></i></a>
-                    <a href="#"><i class="fa fa-heart"></i></a>
+                      <p><%= x.brief %> </p>
+                      <div class="buttons buttons-simple">
+                        <a href="#"><i class="fa fa-shopping-cart"></i></a>
+                        <a href="#"><i class="fa fa-heart"></i></a>
+                      </div>
+                    </div>
                   </div>
                 </div>
-              </div>
+              </article>
             </div>
-          </article>
-        </div>
+            <% count+=1 %>
+            <% if count==4
+                 break
+               end %>
+        <% } %>
+
         <!-- PRODUCT - END -->
 
-        <!-- PRODUCT - START -->
-        <div class="col-sm-3 col-xs-6">
-          <article class="product-item">
-            <div class="row">
-              <div class="col-sm-3">
-                <div class="product-overlay">
-                  <div class="product-mask"></div>
-                  <a href="/home/single_product" class="product-permalink"></a>
-                  <img src="/assets/images/products/product-2.jpg" class="img-responsive" alt="">
-                  <div class="product-quickview">
-                    <a class="btn btn-quickview" data-toggle="modal" data-target="#product-quickview">Quick View</a>
-                  </div>
-                </div>
-              </div>
-              <div class="col-sm-9">
-                <div class="product-body">
-                  <h3>Lorem ipsum dolor sit amet consectetur</h3>
-                                        <span class="price">
-                                            <del><span class="amount">$36.00</span></del>
-                                            <ins><span class="amount">$30.00</span></ins>
-                                        </span>
-                  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut feugiat mauris eget magna egestas porta. Curabitur sagittis sagittis neque rutrum congue. Donec lobortis dui sagittis, ultrices nunc ornare, ultricies elit. Curabitur tristique felis pulvinar nibh porta. </p>
-                  <div class="buttons buttons-simple">
-                    <a href="#"><i class="fa fa-exchange"></i></a>
-                    <a href="#"><i class="fa fa-shopping-cart"></i></a>
-                    <a href="#"><i class="fa fa-heart"></i></a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </article>
-        </div>
-        <!-- PRODUCT - END -->
 
-        <!-- PRODUCT - START -->
-        <div class="col-sm-3 col-xs-6">
-          <article class="product-item">
-            <div class="row">
-              <div class="col-sm-3">
-                <div class="product-overlay">
-                  <div class="product-mask"></div>
-                  <a href="/home/single_product" class="product-permalink"></a>
-                  <img src="/assets/images/products/product-3.jpg" class="img-responsive" alt="">
-                  <div class="product-quickview">
-                    <a class="btn btn-quickview" data-toggle="modal" data-target="#product-quickview">Quick View</a>
-                  </div>
-                </div>
-              </div>
-              <div class="col-sm-9">
-                <div class="product-body">
-                  <h3>Lorem ipsum dolor sit amet consectetur</h3>
-                                        <span class="price">
-                                            <del><span class="amount">$36.00</span></del>
-                                            <ins><span class="amount">$30.00</span></ins>
-                                        </span>
-                  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut feugiat mauris eget magna egestas porta. Curabitur sagittis sagittis neque rutrum congue. Donec lobortis dui sagittis, ultrices nunc ornare, ultricies elit. Curabitur tristique felis pulvinar nibh porta. </p>
-                  <div class="buttons buttons-simple">
-                    <a href="#"><i class="fa fa-exchange"></i></a>
-                    <a href="#"><i class="fa fa-shopping-cart"></i></a>
-                    <a href="#"><i class="fa fa-heart"></i></a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </article>
-        </div>
-        <!-- PRODUCT - END -->
 
-        <!-- PRODUCT - START -->
-        <div class="col-sm-3 col-xs-6">
-          <article class="product-item">
-            <div class="row">
-              <div class="col-sm-3">
-                <div class="product-overlay">
-                  <div class="product-mask"></div>
-                  <a href="/home/single_product" class="product-permalink"></a>
-                  <img src="/assets/images/products/product-4.jpg" class="img-responsive" alt="">
-                  <div class="product-quickview">
-                    <a class="btn btn-quickview" data-toggle="modal" data-target="#product-quickview">Quick View</a>
-                  </div>
-                </div>
-              </div>
-              <div class="col-sm-9">
-                <div class="product-body">
-                  <h3>Lorem ipsum dolor sit amet consectetur</h3>
+        <% if count<4 %>
+
+            <% while count <4 %>
+                <% a=Product.where(subcat: @sub_cat) %>
+                <% a=a.where.not(id: @id).order('created_at DESC') %>
+                <!-- PRODUCT - START -->
+                <% a.each { |x| %>
+
+                    <div class="col-sm-3 col-xs-6">
+                      <article class="product-item">
+                        <div class="row">
+                          <div class="col-sm-3">
+                            <div class="product-overlay">
+                              <div class="product-mask"></div>
+                              <a href="/home/single_product?pid=<%= x.id %>" class="product-permalink"></a>
+
+                              <img src="/assets/images/products/<%= x.images %>/1.jpg" class="img-responsive" alt="">
+                              <div class="product-quickview">
+                                <a class="btn btn-quickview quick" data-toggle="modal"
+                                   data-image="<%= x.images %>" data-id="<%= x.id %>" data-price="<%= x.price %>" data-name="<%= x.name %>" data-brand="<%= x.brand %>"
+                                   data-discount="<%= x.discount %>" data-tags="<%= x.tags %>" data-size="<%= x.sizes %>"
+                                   data-target="#product-quickview">Quick
+                                  View</a>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-sm-9">
+                            <div class="product-body">
+                              <h3><%= x.name %></h3>
+
+                              <div><%= x.brand %></div>
+
                                         <span class="price">
-                                            <del><span class="amount">$36.00</span></del>
-                                            <ins><span class="amount">$30.00</span></ins>
+                                            <del><span class="amount"><%= x.price %> Rs</span></del>
+                                            <ins><span class="amount"><%= x.price-((x.discount/100.0)*x.price).to_i %>
+                                              Rs</span></ins>
                                         </span>
-                  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut feugiat mauris eget magna egestas porta. Curabitur sagittis sagittis neque rutrum congue. Donec lobortis dui sagittis, ultrices nunc ornare, ultricies elit. Curabitur tristique felis pulvinar nibh porta. </p>
-                  <div class="buttons buttons-simple">
-                    <a href="#"><i class="fa fa-exchange"></i></a>
-                    <a href="#"><i class="fa fa-shopping-cart"></i></a>
-                    <a href="#"><i class="fa fa-heart"></i></a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </article>
-        </div>
-        <!-- PRODUCT - END -->
+                              <p><%= x.brief %> </p>
+                              <div class="buttons buttons-simple">
+                                <a href="#"><i class="fa fa-shopping-cart"></i></a>
+                                <a href="#"><i class="fa fa-heart"></i></a>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </article>
+                    </div>
+                    <% count+=1 %>
+                    <% if count==4
+                         break
+                       end %>
+                <% } %>
+                <!-- PRODUCT - END -->
+            <% end %>
+
+        <% end %>
+
 
       </div>
     </div>
@@ -395,19 +353,115 @@
   PRODUCTS - END
 =========================== -->
 
+
+
+
+<!-- ==========================
+  PRODUCT QUICKVIEW - START
+=========================== -->
+
+<div class="modal fade modal-quickview" id="product-quickview" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document" >
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <i class="fa fa-times"></i></button>
+      </div>
+      <div class="modal-body">
+        <article class="product-item product-single">
+          <div class="row">
+            <div class="col-sm-4">
+              <div class="product-carousel-wrapper hidden">
+                <div id="product-carousel-modal">
+
+                  <div class="item">
+                    <img id="image1" src="/assets/images/products//1.jpg" class="img-responsive" alt="image1">
+                  </div>
+                  <div class="item ">
+                    <img id="image2" src="/assets/images/products//2.jpg"  class="img-responsive" alt="image2">
+                  </div>
+                  <div class="item ">
+                    <img id="image3" src="/assets/images/products//3.jpg" class="img-responsive" alt="image3">
+                  </div>
+                  <div class="item">
+                    <img id="image4" src="/assets/images/products//4.jpg" class="img-responsive" alt="image4">
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-8">
+
+              <h3 id="qname"></h3>
+              <div class="product-labels">
+
+                <span class="label label-info hidden" id="qnew">new</span>
+
+                <span class="label label-danger hidden" id="qsale">sale</span>
+              </div>
+
+
+
+                                <span class="price">
+                                    <del><span class="amount" id="aprice"> Rs</span></del>
+                                    <ins><span class="amount" id="dprice"> Rs</span></ins>
+                                </span>
+              <ul class="list-unstyled product-info">
+                <li><span>ID</span><a id="qid"></a></li>
+                <li><span>Availability</span>In Stock</li>
+                <li><span>Brand</span><a id="qbrand"></a></li>
+                <li><span>Tags</span><a id="qtags"></a></li>
+              </ul>
+
+              <!-- it will recieve product id by java script -->
+              <div class="pro_id"></div>
+
+
+              <p></p>
+              <div class="product-form clearfix">
+                <div class="row row-no-padding">
+                  <div class="col-lg-3 col-md-12 col-sm-6">
+                    <a href="" id="addc" class="btn btn-primary add-to-cart"><i class="fa fa-shopping-cart"></i>Add
+                      to cart</a>
+                  </div>
+
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- ==========================
+  PRODUCT QUICKVIEW - END
+=========================== -->
+
+
+
+
+
+
+
 <!-- ==========================
   ADD REVIEW - START
 =========================== -->
+
+
 <div class="modal fade modal-add-review" id="add-review" tabindex="-1" role="dialog">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><i class="fa fa-times"></i></button>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <i class="fa fa-times"></i></button>
         <h4 class="modal-title">Add a review</h4>
       </div>
       <div class="modal-body">
         <form class="comment-form">
-          <p class="comment-notes"><span id="email-notes">Your email address will not be published.</span> Required fields are marked<span class="required">*</span></p>
+          <p class="comment-notes"><span id="email-notes">Your email address will not be published.</span>
+            Required
+            fields are marked<span class="required">*</span></p>
           <div class="row">
             <div class="form-group comment-form-author col-sm-6">
               <label for="author">Name<span class="required">*</span></label>
@@ -432,119 +486,84 @@
   ADD REVIEW - END
 =========================== -->
 
-<!-- ==========================
-  PRODUCT QUICKVIEW - START
-=========================== -->
-<div class="modal fade modal-quickview" id="product-quickview" tabindex="-1" role="dialog">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><i class="fa fa-times"></i></button>
-      </div>
-      <div class="modal-body">
-        <article class="product-item product-single">
-          <div class="row">
-            <div class="col-sm-4">
-              <div class="product-carousel-wrapper hidden">
-                <div id="product-carousel-modal">
-                  <div class="item"><img src="/assets/images/products/product-1.jpg" class="img-responsive" alt=""></div>
-                  <div class="item"><img src="/assets/images/products/product-2.jpg" class="img-responsive" alt=""></div>
-                  <div class="item"><img src="/assets/images/products/product-3.jpg" class="img-responsive" alt=""></div>
-                  <div class="item"><img src="/assets/images/products/product-4.jpg" class="img-responsive" alt=""></div>
-                </div>
-              </div>
-            </div>
-            <div class="col-sm-8">
-              <h3>Fusce Aliquam</h3>
-              <div class="product-labels">
-                <span class="label label-info">new</span>
-                <span class="label label-danger">sale</span>
-              </div>
-              <div class="product-rating">
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star-o"></i>
-                <i class="fa fa-star-o"></i>
-              </div>
-                                <span class="price">
-                                    <del><span class="amount">$36.00</span></del>
-                                    <ins><span class="amount">$30.00</span></ins>
-                                </span>
-              <ul class="list-unstyled product-info">
-                <li><span>ID</span>U-187423</li>
-                <li><span>Availability</span>In Stock</li>
-                <li><span>Brand</span>Esprit</li>
-                <li><span>Tags</span>Dress, Black, Women</li>
-              </ul>
-              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut feugiat mauris eget magna egestas porta. Curabitur sagittis sagittis neque rutrum congue. Donec lobortis dui sagittis, ultrices nunc ornare, ultricies elit. Curabitur tristique felis pulvinar nibh porta. </p>
-              <div class="product-form clearfix">
-                <div class="row row-no-padding">
 
-                  <div class="col-lg-3 col-md-4 col-sm-6">
-                    <div class="product-quantity clearfix">
-                      <a class="btn btn-default" id="modal-qty-minus">-</a>
-                      <input type="text" class="form-control" id="modal-qty" value="1">
-                      <a class="btn btn-default" id="modal-qty-plus">+</a>
-                    </div>
-                  </div>
+<script>
+  $(document).ready(function () {
+    $('#addwishlist').click(function () {
+      var product_id = $('#proid').val();
+      $.ajax({
+        type: 'GET',
+        url: '/home/stores',
+        data: {
+          wishlistitem: product_id
+        }, success: function () {
+          alert("Added Successfully");
+          location.reload();
+        },
+        error: function () {
+          alert('Item already exists in your wishlist!');
+        }
+      });
+    });
 
-                  <div class="col-lg-3 col-md-4 col-sm-6">
-                    <div class="product-size">
-                      <form class="form-inline">
-                        <div class="form-group">
-                          <label>Size:</label>
-                        </div>
-                        <div class="form-group">
-                          <select class="form-control">
-                            <option>XS</option>
-                            <option>S</option>
-                            <option selected="selected">M</option>
-                            <option>L</option>
-                            <option>XL</option>
-                            <option>XXL</option>
-                          </select>
-                        </div>
-                      </form>
-                    </div>
-                  </div>
+  });
 
-                  <div class="col-lg-3 col-md-4 col-sm-6">
-                    <div class="product-color">
-                      <form class="form-inline">
-                        <div class="form-group">
-                          <label>Color:</label>
-                        </div>
-                        <div class="form-group">
-                          <select class="form-control">
-                            <option selected="selected">Black</option>
-                            <option>White</option>
-                            <option>Red</option>
-                            <option>Yellow</option>
-                          </select>
-                        </div>
-                      </form>
-                    </div>
-                  </div>
+  $(document).ready(function () {
 
-                  <div class="col-lg-3 col-md-12 col-sm-6">
-                    <a href="#" class="btn btn-primary add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
-                  </div>
+    $('#addcart').click(function () {
+      var product_id = $('#proid').val();
+      var quantity = $('#qty').val();
+      var size = $('#size').val();
 
-                </div>
-              </div>
-              <ul class="list-inline product-links">
-                <li><a href="#"><i class="fa fa-heart"></i>Add to wishlist</a></li>
-                <li><a href="#"><i class="fa fa-exchange"></i>Compare</a></li>
-                <li><a href="#"><i class="fa fa-envelope"></i>Email to friend</a></li>
-              </ul>
-            </div>
-          </div>
-        </article>
-      </div>
-    </div>
-  </div>
-</div>
-<!-- ==========================
-  PRODUCT QUICKVIEW - END
-=========================== -->
+
+      $.ajax({
+        type: 'GET',
+        url: '/home/stores',
+        data: {
+          cartitem: product_id,
+          quantity: quantity,
+          prosize: size
+        }, success: function () {
+          alert("Added Successfully")
+          location.search = "?pid=" + product_id
+        },
+        error: function () {
+          alert('Item already exists in your cart!');
+        }
+      });
+
+    });
+
+
+    $('#product-quickview').on('show.bs.modal', function (e) {
+      // using latest bootstrap so, show.bs.modal
+
+      var id = $(e.relatedTarget).data('id');
+      $("#qid").text(id);
+      var brand = $(e.relatedTarget).data('brand');
+      $("#qbrand").text(brand);
+      var p = $(e.relatedTarget).data('price')
+      var d = $(e.relatedTarget).data('discount');
+      var dprice = p - Math.floor((d / 100) * p);
+      $("#aprice").text(p + " Rs");
+      $("#dprice").text(dprice + " Rs");
+      $("#qtags").text($(e.relatedTarget).data('tags') + "," + brand.toLowerCase());
+      $("#qname").text($(e.relatedTarget).data('name'));
+      if (d == 0) {
+        $('#qnew').removeClass('hidden');
+      } else {
+        $('#qsale').removeClass('hidden');
+      }
+      var image = $(e.relatedTarget).data('image');
+      $('img[alt="image1"]').attr('src', '/assets/images/products/' + image + '/1.jpg');
+      $('img[alt="image2"]').attr('src', '/assets/images/products/' + image + '/2.jpg');
+      $('img[alt="image3"]').attr('src', '/assets/images/products/' + image + '/3.jpg');
+      $('img[alt="image4"]').attr('src', '/assets/images/products/' + image + '/4.jpg');
+
+      $("#addc").attr('href', "/home/single_product?pid=" + id + "&selectsize=false");
+    });
+
+  });
+
+
+</script>

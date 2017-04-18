@@ -1,0 +1,180 @@
+<!-- ==========================
+  BREADCRUMB - START
+=========================== -->
+<section class="breadcrumb-wrapper">
+  <div class="container">
+    <div class="row">
+      <div class="col-xs-6">
+        <h2>Checkout</h2>
+        <p>Review</p>
+      </div>
+      <div class="col-xs-6">
+        <ol class="breadcrumb">
+          <li><a href="/">Home</a></li>
+          <li><a href="/home/checkout">Checkout</a></li>
+          <li class="active">Review</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- ==========================
+    BREADCRUMB - END
+  =========================== -->
+
+<!-- ==========================
+  MY ACCOUNT - START
+=========================== -->
+<section class="content account">
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-12">
+        <article class="account-content checkout-steps">
+
+          <div class="row row-no-padding">
+            <div class="col-xs-6 col-sm-4">
+              <div class="checkout-step active">
+                <div class="number">1</div>
+                <div class="title">Billing & Shipping Address</div>
+              </div>
+            </div>
+            <div class="col-xs-6 col-sm-4">
+              <div class="checkout-step active">
+                <div class="number">2</div>
+                <div class="title">Payment Method</div>
+              </div>
+            </div>
+            <div class="col-xs-6 col-sm-4">
+              <div class="checkout-step active">
+                <div class="number">3</div>
+                <div class="title">Review</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="progress checkout-progress hidden-xs">
+            <div class="progress-bar" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width:100%;"></div>
+          </div>
+          <form>
+            <% if !@order_review.nil? %>
+
+                <h3 class="text-center">Your Order Has Been Placed Successfully With Order Id
+                  # <%= "#{@order_review['id']}" %></h3><br/>
+                <h3>Review Order</h3>
+                <div class="row">
+                  <div class="col-sm-6">
+                    <div class="box">
+                      <h4>Billing Address</h4>
+                      <ul class="list-unstyled">
+                        <li><b><%= "#{@order_review['fname']} #{@order_review['lname']}" %></b></li>
+                        <li><%= "#{@order_review['addr_one']}" %></li>
+                        <li><%= "#{@order_review['addr_two']}" %></li>
+                        <li><%= "#{@order_review['city']}" %></li>
+                        <li><%= "#{@order_review['country']}" %></li>
+                      </ul>
+                    </div>
+                  </div>
+                  <div class="col-sm-6">
+                    <div class="box">
+                      <h4>Shipping Address</h4>
+                      <ul class="list-unstyled">
+                        <li>Same as billing address.</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-sm-6">
+                    <div class="box">
+                      <h4>Payment Method</h4>
+                      <ul class="list-unstyled">
+                        <li><%= "#{@order_review['payment_mode']}" %></li>
+                      </ul>
+                    </div>
+                    <div class="box">
+                      <h4>Shipping Method</h4>
+                      <ul class="list-unstyled">
+                        <li>Bluedart Courier</li>
+                      </ul>
+                    </div>
+                  </div>
+                  <div class="col-sm-6">
+                    <div class="box">
+                      <h4>Order Details</h4>
+                      <ul class="list-unstyled">
+                        <li><b>Email: </b><%= "#{@order_review['email']}" %></li>
+                        <li><b>Phone: </b>+91 <%= "#{@order_review['phone']}" %></li>
+                      </ul>
+                      <h5>Addition information:</h5>
+                      <p>Nothing to show.</p>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="products-order checkout shopping-cart">
+                  <div class="table-responsive">
+                    <table class="table table-products">
+                      <thead>
+                      <tr>
+                        <th></th>
+                        <th>Product</th>
+                        <th>Unit Price</th>
+                        <th>Quantity</th>
+                        <th>Subtotal</th>
+                      </tr>
+                      </thead>
+                      <tbody>
+                      <% unless @product_data.empty?
+                           ps = total_price=0
+                           for p in @product_data
+                             rate = p.price-(p.price.to_i*p.discount.to_i/100.0).to_i
+                             ps += p.quantity.to_i
+                        total_price+=p.price.to_i*p.quantity.to_i
+                      %>
+                              <tr>
+                                <td class="col-xs-1">
+                                  <img src="/assets/images/products/<%= p.images %>/1.jpg" alt="" class="img-responsive">
+                                </td>
+                                <td class="col-xs-4 col-md-5">
+                                  <h4><a href="/home/products/id=<%= p.id %>"><%= p.name %></a>
+                                    <span> </span>
+                                    <small><%= p.brand %></small>
+                                  </h4>
+                                </td>
+                                <td class="col-xs-2 text-center"><span><strike>Rs <%= p.price %></strike></span><span> Rs <%= rate %></span>
+                                </td>
+                                <td class="col-xs-2 col-md-1 text-center"><span><b><%= p.quantity %> items</b></span>
+                                </td>
+                                <td class="col-xs-2 text-center"><span><b>Rs <%= rate*p.quantity.to_i %></b></span></td>
+                              </tr>
+                          <% end
+                             end %>
+                      </tbody>
+                    </table>
+
+                  </div>
+
+                  <ul class="list-unstyled order-total">
+                    <li>Total products<span><%= ps %></span></li>
+                    <li>Total price<span><%= total_price %></span></li>
+                    <li>Discount<span>- Rs <%= session[:order]["total_discount"] %></span></li>
+                    <li>Shipping<span>Free</span></li>
+                    <li>Subtotal<span class="total">Rs <%= session[:order]["total"] %></span></li>
+                  </ul>
+                  <br/>
+                  <div class="clearfix">
+                    <a href="/" class="btn btn-primary btn-lg pull-right">Continue Shoping</a>
+                  </div>
+                </div>
+            <% else %>
+                <script>window.location.href = '/';</script>
+            <% end %>
+          </form>
+        </article>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- ==========================
+  MY ACCOUNT - END
+=========================== -->

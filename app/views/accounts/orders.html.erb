@@ -15,7 +15,7 @@
               <li><a href="/accounts/address">My Address</a></li>
               <li class="active"><a href="/accounts/orders">My Orders</a></li>
               <li><a href="/accounts/wishlist">Wishlist</a></li>
-              <li><a href="/home/index">Back to Shop</a></li>
+              <li><a href="/">Back to Shop</a></li>
             </ul>
           </div>
           <!-- WIDGET:CATEGORIES - END -->
@@ -35,46 +35,29 @@
                 <th class="col-xs-3">Status</th>
                 <th class="col-xs-1"></th>
               </tr>
-              <tr>
-                <td><a href="single-order.html">#124321</a></td>
-                <td>12th July 2015</td>
-                <td class="hidden-xs hidden-sm">3</td>
-                <td>$265</td>
-                <td><span class="label label-info">On Hold</span></td>
-                <td><a href="single-order.html" class="btn btn-primary btn-sm">View</a></td>
-              </tr>
-              <tr>
-                <td><a href="single-order.html">#124321</a></td>
-                <td>12th July 2015</td>
-                <td class="hidden-xs hidden-sm">3</td>
-                <td>$265</td>
-                <td><span class="label label-warning">Pending Payment</span></td>
-                <td><a href="single-order.html" class="btn btn-primary btn-sm">Pay</a></td>
-              </tr>
-              <tr>
-                <td><a href="single-order.html">#124321</a></td>
-                <td>12th July 2015</td>
-                <td class="hidden-xs hidden-sm">3</td>
-                <td>$265</td>
-                <td><span class="label label-info">Processing</span></td>
-                <td><a href="single-order.html" class="btn btn-primary btn-sm">View</a></td>
-              </tr>
-              <tr>
-                <td><a href="single-order.html">#124321</a></td>
-                <td>12th July 2015</td>
-                <td class="hidden-xs hidden-sm">3</td>
-                <td>$265</td>
-                <td><span class="label label-success">Completed</span></td>
-                <td><a href="single-order.html" class="btn btn-primary btn-sm">View</a></td>
-              </tr>
-              <tr>
-                <td><a href="single-order.html">#124321</a></td>
-                <td>12th July 2015</td>
-                <td class="hidden-xs hidden-sm">3</td>
-                <td>$265</td>
-                <td><span class="label label-danger">Canceled</span></td>
-                <td><a href="single-order.html" class="btn btn-primary btn-sm">View</a></td>
-              </tr>
+              <% if !@orders.nil? and !@orders.empty? %>
+                  <% for order in @orders %>
+                      <tr>
+                        <td><%= link_to "##{order.id}", {action: "orders", uid: order.user_id, oid: order.id} %></td>
+                        <td><%= order.created_at.to_date %></td>
+                        <td class="hidden-xs hidden-sm"><%= order.quantity %></td>
+                        <td>Rs <%= order.total %></td>
+                        <td>
+                          <% case order[:order_status] %>
+                          <% when "On Hold" %>
+                              <span class="label label-info">On Hold</span>
+                          <% when "Processing" %>
+                              <span class="label label-info">Processing</span>
+                          <% when "Completed" %>
+                              <span class="label label-success">Completed</span>
+                          <% when "Cancelled" %>
+                              <span class="label label-danger">Cancelled</span>
+                          <% end %>
+                        </td>
+                        <td><a href="/accounts/singleorder?user_auth=<%= order.user_id %>&order_id=<%= order.id %>" class="btn btn-primary btn-sm">View</a></td>
+                      </tr>
+                  <% end %>
+              <% end %>
             </table>
           </div>
         </article>

@@ -1,0 +1,111 @@
+<!-- ==========================
+  MY ACCOUNT - START
+=========================== -->
+<section class="content account">
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-3">
+        <aside class="sidebar">
+
+          <!-- WIDGET:CATEGORIES - START -->
+          <div class="widget widget-navigation">
+            <ul class="nav nav-pills nav-stacked">
+              <li><a href="/accounts/dashboard">Account Dashboard</a></li>
+              <li><a href="/accounts/profile">Personal Infromation</a></li>
+              <li class="active"><a href="/accounts/address">My Address</a></li>
+              <li><a href="/accounts/orders">My Orders</a></li>
+              <li><a href="/accounts/wishlist">Wishlist</a></li>
+              <li><a href="/home/index">Back to Shop</a></li>
+            </ul>
+          </div>
+          <!-- WIDGET:CATEGORIES - END -->
+
+        </aside>
+      </div>
+      <div class="col-sm-9">
+        <article class="account-content">
+          <h3>New Address</h3>
+
+          <% if !@addr.errors.nil? %>
+              <br/>
+              <ul>
+                <% for error_msg in @addr.errors.full_messages %>
+                    <li style="color: #ff0000"><%= error_msg %></li>
+                <% end %>
+              </ul>
+              <br/>
+          <% end %>
+
+          <form class="form-horizontal">
+            <%= form_for(:new_addr, html: {class: "form-horizontal"}, url: {action: "addaddress", method: :post}) do |f| %>
+                <div class="form-group">
+                  <label class="col-md-4 col-lg-3 control-label">First Name<span class="required">*</span></label>
+                  <div class="col-md-6 col-lg-6">
+                    <%= f.text_field :first_name, class: "form-control", value: @edit_record.nil? ? "" : @edit_record.first_name %>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="col-md-4 col-lg-3 control-label">Last Name<span class="required">*</span></label>
+                  <div class="col-md-6 col-lg-6">
+                    <%= f.text_field :last_name, class: "form-control", value: @edit_record.nil? ? "" : @edit_record.last_name %>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="col-md-4 col-lg-3 control-label">Phone<span class="required">*</span></label>
+                  <div class="col-md-8 col-lg-9">
+                    <%= f.number_field :phone, class: "form-control", value: @edit_record.nil? ? "" : @edit_record.phone %>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="col-md-4 col-lg-3 control-label">Address Line 1<span class="required">*</span></label>
+                  <div class="col-md-8 col-lg-9">
+                    <%= f.text_field :address_one, class: "form-control", value: @edit_record.nil? ? "" : @edit_record.address_one %>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="col-md-4 col-lg-3 control-label">Address Line 2</label>
+                  <div class="col-md-8 col-lg-9">
+                    <%= f.text_field :address_two, class: "form-control", value: @edit_record.nil? ? "" : @edit_record.address_two %>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="col-md-4 col-lg-3 control-label">City<span class="required">*</span></label>
+                  <div class="col-md-8 col-lg-9">
+                    <%= f.text_field :city, class: "form-control", value: @edit_record.nil? ? "" : @edit_record.city %>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="col-md-4 col-lg-3 control-label">Zip / Postal
+                    Code<span class="required">*</span></label>
+                  <div class="col-md-8 col-lg-9">
+                    <%= f.text_field :zipcode, class: "form-control", value: @edit_record.nil? ? "" : @edit_record.zipcode %>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="col-md-4 col-lg-3 control-label">Country<span class="required">*</span></label>
+                  <div class="col-md-8 col-lg-9">
+                    <select name="new_addr[country]" id="new_addr_country" class="form-control", value="<%= @edit_record.nil? ? "" : @edit_record.country %>" >
+                      <option value="AF">Afghanistan</option>
+                      <option value="IN">India</option>
+                      <option value="UA">Ukraine</option>
+                      <option value="AE">United Arab Emirates</option>
+                      <option value="GB">United Kingdom</option>
+                      <option value="US">United States</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <div class="col-md-offset-4 col-md-8 col-lg-offset-3 col-lg-9">
+                    <%= f.submit @edit_record.nil? ? "Add New" : "Update Reocord", class: "btn btn-primary" %>
+                  </div>
+                </div>
+            <% end %>
+        </article>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- ==========================
+  MY ACCOUNT - END
+=========================== -->

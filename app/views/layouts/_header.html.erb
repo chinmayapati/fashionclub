@@ -1,0 +1,243 @@
+<div id="scrolltop" class="hidden-xs"><i class="fa fa-angle-up"></i></div>
+
+
+<!-- ==========================
+    HEADER - START
+=========================== -->
+<div class="top-header hidden-xs">
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-6">
+        <ul class="list-inline contacts">
+          <li><i class="fa fa-envelope"></i> help@fashionclub.com</li>
+          <li><i class="fa fa-phone"></i> +114 356 3567</li>
+        </ul>
+      </div>
+      <div class="col-sm-6 text-right">
+        <ul class="list-inline links">
+          <li><a href="/home/stores">Our Stores</a></li>
+          <li><a href="/home/aboutus">About Us</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<header class="navbar navbar-default navbar-static-top">
+  <div class="container">
+    <div class="navbar-header">
+      <a href="/" class="navbar-brand"><span>fashion</span>Club</a>
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"><i
+      class="fa fa-bars"></i></button>
+    </div>
+    <div class="navbar-collapse collapse">
+      <p class="navbar-text hidden-xs hidden-sm">There is no end to fashion</p>
+      <ul class="nav navbar-nav navbar-right">
+        <li class="dropdown">
+          <a href="/">Home <span><i class="fa fa-home"></i></span></a>
+        </li>
+        <li class="dropdown megamenu">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown"
+             data-delay="300" data-close-others="true" id="menu">Shopping
+            <span><i class="fa fa-cart-arrow-down"></i></span></a>
+
+          <ul class="dropdown-menu">
+
+            <li class="col-sm-6 col-md-4">
+              <ul class="list-unstyled">
+                <li class="title">Men</li>
+                <li><%= link_to "Casual Shirts", {action: "product" , controller: "home", cat: "men", subcat: "casual_shirts"} %></li>
+                <li><a href="/home/product?cat=men&subcat=tshirts">T- Shirts</a> <span class="label label-danger pull-right">Summer Collection</span></li>
+                <li><%= link_to "Jeans", {action: "product" , controller: "home", cat: "men", subcat: "jeans"} %></li>
+                <li><a href="/home/product?cat=men&subcat=shorts">Shorts</a></li>
+                <li><a href="/home/product?cat=men&subcat=sherwani">Sherwani</a></li>
+                <li><a href="/home/product?cat=men&subcat=jackets">Jackets  <span class="label label-info pull-right">50% OFF</span></a></li>
+                <div id="accessories">
+                  <li><a href="#">Accessories </a></li>
+                  <div id="hover-content">
+                    <li><a href="/home/product?cat=men&subcat=caps">Caps and Hats</a></li>
+                    <li><a href="/home/product?cat=men&subcat=belts">Belts</a></li>
+                    <li><a href="/home/product?cat=men&subcat=gloves">Gloves</a></li>
+                    <li><a href="/home/product?cat=men&subcat=ties">Ties</a></li>
+                    <li><a href="/home/product?cat=men&subcat=wallets">Wallets</a></li>
+                  </div>
+                </div>
+
+              </ul>
+            </li>
+
+            <li class="col-sm-6 col-md-4">
+              <ul class="list-unstyled">
+                <li class="title">Women
+                <li><a href="/home/product?cat=women&subcat=tops">Top and Tees</a></li>
+                <li><a href="/home/product?cat=women&subcat=jeans">Jeans And Jeggings</a></li>
+                <li><a href="/home/product?cat=women&subcat=skirts">Skirts and Shorts <span class="label label-danger pull-right">Summer Collection</span></a></li>
+                <li><a href="/home/product?cat=women&subcat=kurtas">Kurta and Suits</a></li>
+                <li><a href="/home/product?cat=women&subcat=dresses">Dresses and JumpSuits<span class="label label-info pull-right">30% OFF SALE</span></a></li>
+                <li><a href="/home/product?cat=women&subcat=jackets">Jackets</a></li>
+
+                <div id="accessories">
+                  <li><a href="#">Accessories >></a></li>
+                  <div id="hover-content">
+                    <li><a href="/home/product?cat=women&subcat=caps">Caps and Hats</a></li>
+                    <li><a href="/home/product?cat=women&subcat=belts">Belts</a></li>
+                    <li><a href="/home/product?cat=women&subcat=gloves">Gloves</a></li>
+                    <li><a href="/home/product?cat=women&subcat=socks">Socks</a></li>
+                    <li><a href="/home/product?cat=women&subcat=jewellery">Jewellery</a> <span class="label label-danger pull-right">New</span></li>
+                    <li><a href="/home/product?cat=women&subcat=hairs">Hair Accesories</a></li>
+                  </div>
+                </div>
+
+              </ul>
+            </li>
+
+
+            <li class="hidden-xs hidden-sm col-md-4">
+              <img src="/assets/images/megamenu.png" class="img-responsive" width="305px;" alt="">
+            </li>
+
+          </ul>
+        </li>
+        <li class="dropdown megamenu">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown"
+             data-delay="300" data-close-others="true">My Account <span><i class="fa fa-user"></i></span></a>
+          <ul class="dropdown-menu quick-action">
+            <li class="col-sm-12">
+              <ul class="list-unstyled text-center">
+                <% if !logged_in? %>
+                    <li class="title1">You Need To Login</li>
+                    <br>
+                    <li class="col-sm-6"><%= link_to "Sign in", signin_path, class: "btn btn-primary btn-block visited", style: {color: "white"} %></li>
+                    <li class="col-sm-6"><%= link_to "Sign up", signup_path, class: "btn btn-primary btn-block visited", style: {color: "white"} %></li>
+                <% else %>
+                    <div>
+                      <div class="title1">
+                        <li style="font-size: 20px;"><%= "#{current_user.first_name} #{current_user.last_name}" %></li>
+                        <li class="email"><%= "#{current_user.email}" %></li>
+                      </div>
+                      <li><a href="/accounts/orders">Orders</a></li>
+                      <li><a href="/accounts/wishlist">Wishlist</a></li>
+                      <li><a href="/home/cart">Cart</a></li>
+                      <li><a href="/accounts/profile">Profile</a></li>
+                      <li><%= link_to "Logout", logout_path, method: "delete" %></li>
+                    </div>
+                <% end %>
+              </ul>
+            </li>
+          </ul>
+        </li>
+        <% if logged_in? %>
+            <%
+
+              cart_items = Cart.where(user_id: current_user.id, order_placed: 0).order('created_at DESC') # id,user_id,product_id,quantity
+              product_ids = cart_items.map { |row| row.product_id }#.to_s.remove("[").remove("]")
+              #product_data = Product.find_by_sql("SELECT id,images,name,price,discount,quantity FROM `products` WHERE id IN (#{product_ids});") unless product_ids.empty?
+
+              product_data=[]
+              cnt=0;
+              product_ids.size.times do |i|
+              a=Product.find_by(id: product_ids[i])
+              product_data << a
+              end
+
+              cart_data_header = cart_items.zip product_data unless product_data.nil?
+              if !cart_data_header.nil? and !cart_data_header.empty?
+
+            %>
+
+
+
+                <!-- CART START -->
+
+                <li class="dropdown navbar-cart hidden-xs">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="300" data-close-others="true"><i class="fa fa-shopping-cart"><span class="badge"> <%= cart_items.size %> </span></i></a>
+                  <ul class="dropdown-menu">
+                   <%
+                     cart_data_header.each do |cart, prod|
+                       if cnt==4
+                         break
+                       end
+                     prod.price = prod.price.to_i-((prod.price.to_i*(prod.discount/100.0)).to_i)*cart.quantity.to_i
+                    %>
+
+                        <!-- CART ITEM - START -->
+                        <li>
+                          <div class="row">
+                            <div class="col-sm-3">
+                              <img src="/assets/images/products/<%= prod.images %>/1.jpg" class="img-responsive" alt="">
+
+                            </div>
+                            <div class="col-sm-9">
+                              <h4><a href="/home/single_product?id=<%= cart.id %>"><%= prod.name %></a></h4>
+                              <p><%= cart.quantity %>x = Rs <%= prod.price.to_i %> <span> ( <%= cart.size.upcase%>) </span></p>
+                              <a href="#" class="remove" onclick="deleteItemFromHeader(<%= cart.id %>);"><i class="fa fa-times-circle"></i></a>
+                            </div>
+                          </div>
+                        </li>
+                        <!-- CART ITEM - END -->
+                        <% cnt+=1 %>
+                    <% end %>
+                    <li>
+                      <div class="row">
+                        <div class="col-sm-6">
+                          <a href="/home/cart" class="btn btn-primary btn-block">View Cart</a>
+                        </div>
+                        <div class="col-sm-6">
+                          <a href="/home/checkout" class="btn btn-primary btn-block">Checkout</a>
+                        </div>
+                      </div>
+                    </li>
+            <% else %>
+                <li class="dropdown navbar-cart hidden-xs">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="300" data-close-others="true"><i class="fa fa-shopping-cart"><span class="badge"> 0 </span></i></a>
+                  <ul class="dropdown-menu">
+                    <li>No items in your cart!</li>
+                  </ul>
+                </li>
+            <% end %>
+
+            </ul>
+            </li>
+            <!-- CART END -->
+        <% end %>
+
+        <!-- <li class="dropdown navbar-search hidden-xs">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-search"></i></a>
+                <ul class="dropdown-menu">
+                  <li>
+                    <form>
+                      <div class="input-group input-group-lg">
+                        <input type="text" class="form-control" placeholder="Search ...">
+                         <span class="input-group-btn">
+                          <button class="btn btn-primary" type="button">Search</button>
+                         </span>
+                      </div>
+                    </form>
+                  </li>
+                </ul>
+              </li> -->
+      </ul>
+    </div>
+  </div>
+</header>
+<!-- ==========================
+  HEADER - END
+=========================== -->
+<script>
+  function deleteItemFromHeader(cart_id) {
+    $.ajax({
+      type: "GET",
+      url: "/home/cart",
+      data: {
+        cart_id: cart_id
+      },
+      success: function (response) {
+        location.reload();
+      },
+      error: function (e) {
+        alert('Some error occurred while deleting item! ');
+      }
+    });
+  }
+
+</script>

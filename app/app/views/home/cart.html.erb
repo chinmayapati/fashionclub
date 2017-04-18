@@ -1,0 +1,166 @@
+<!-- ==========================
+  BREADCRUMB - START
+=========================== -->
+<section class="breadcrumb-wrapper">
+  <div class="container">
+    <div class="row">
+      <div class="col-xs-6">
+        <h2>fashionClub</h2>
+        <p>Cart</p>
+      </div>
+      <div class="col-xs-6">
+        <ol class="breadcrumb">
+          <li><a href="/home/index">Home</a></li>
+          <li class="active">Cart</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- ==========================
+    BREADCRUMB - END
+  =========================== -->
+
+<!-- ==========================
+  MY ACCOUNT - START
+=========================== -->
+<section class="content account">
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-12">
+        <article class="account-content">
+
+          <div class="products-order shopping-cart">
+            <div class="table-responsive">
+              <table class="table table-products">
+                <thead>
+                <tr>
+                  <th></th>
+                  <th>Product</th>
+                  <th>Unit Price</th>
+                  <th>Quantity</th>
+                  <th>Subtotal</th>
+                  <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                <% if !@cart_data.nil?
+                     total = discount = 0
+                %>
+                    <% @cart_data.each do |c, p| %>
+                        <%
+                          discount += (p.price.to_i*p.discount.to_i/100)*c.quantity.to_i
+                          total += p.price.to_i*c.quantity.to_i
+                        %>
+                        <tr>
+                          <td class="col-xs-1">
+                            <img src="/assets/images/products/product-1.jpg" alt="" class="img-responsive"></td>
+                          <td class="col-xs-4 col-md-5">
+                            <h4><%= link_to p.name, {action: 'single_product', controller: 'home', pid: c.product_id} %><span> (<%= c.size.upcase %>) </span>
+                              <small><%= p.tags.upcase %></small>
+                            </h4>
+                          </td>
+                          <!-- unit price -->
+                          <td class="col-xs-2 text-center"><span>Rs <%= p.price.to_i %></span></td>
+                          <td class="col-xs-2 col-md-1">
+                            <div class="form-group">
+                              <input type="hidden" class="cart_id" value="<%= c.id %>">
+                              <input type="number" class="form-control quantity" value="<%= c.quantity %>">
+                            </div>
+                          </td>
+                          <td class="col-xs-2 text-center">
+                            <span>
+                              <b class="subtotal">Rs <%= p.price.to_i*c.quantity.to_i %></b>
+                            </span>
+                          </td>
+                          <td class="col-xs-1 text-center">
+                            <a href="#" class="btn btn-primary" onclick="deleteItem(<%= c.id %>);"><i class="fa fa-times"></i></a></td>
+                        </tr>
+                    <% end %>
+                <% else %>
+                    <tr>
+                      <td colspan="5" class="text-center">You haven't added any item in the cart.</td>
+                    </tr>
+                <% end %>
+                </tbody>
+              </table>
+            </div>
+            <a href="/" class="btn btn-inverse">Continue Shopping</a>
+            <a href="#" class="btn btn-inverse update-cart">Update Shopping Cart</a>
+          </div>
+
+          <% unless @cart_data.nil? %>
+              <div class="box">
+                <div class="row">
+                  <div class="col-sm-6">
+                    <h5>Enter your coupon code if you have one.</h5>
+                    <div class="input-group">
+                      <input type="email" class="form-control" placeholder="Discount code">
+                      <span class="input-group-btn">
+                          <button class="btn btn-primary" type="button">Apply Coupon</button>
+                      </span>
+                    </div>
+                  </div>
+                  <div class="col-sm-4 col-sm-offset-2">
+                    <ul class="list-unstyled order-total">
+                      <li>Total products<span id="totalamt">Rs <%= total %></span></li>
+                      <li>Discount<span id="discount">- Rs <%= discount %></span></li>
+                      <li>Subtotal<span class="total" id="amount">Rs <%= total-discount %></span></li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              <div class="clearfix">
+                <a href="/home/checkout" class="btn btn-primary btn-lg pull-right ">Checkout</a>
+              </div>
+          <% end %>
+
+        </article>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- ==========================
+  MY ACCOUNT - END
+=========================== -->
+<script>
+  $('.quantity').keyup(function () {
+    //var unit_price = $(this).siblings("input[type='hidden']").val();
+    //var subtotal = $(this).siblings('.subtotal_inp').val();
+    //var units = $(this).val();
+    //var cart_id = $(this).siblings('.cart_id').val();
+  });
+
+  $('.update-cart').click(function () {
+
+    var cart_ids = [];
+    var quantities = [];
+
+    $('.quantity').each(function () { quantities.push( parseInt($(this).val())); });
+    $('.cart_id').each(function () { cart_ids.push( parseInt($(this).val())); });
+
+    /* Making an AJAX call to update cart */
+    $.ajax({
+      type: "GET",
+      url: "/home/cart",
+      data: {
+        cart_id: cart_ids, quantity: quantities
+      },
+      success: function(response){ window.location.href = '/home/cart'; },
+      error : function(e){ window.location.href = '/home/cart'; }
+    });
+  });
+
+  function deleteItem(cart_id){
+    $.ajax({
+      type: "GET",
+      url: "/home/cart",
+      data: {
+        cart_id: cart_id
+      },
+      success: function(response){ window.location.href = '/home/cart'; },
+      error : function(e){ alert('Some error occurred while deleting item! '); }
+    });
+  }
+
+</script>

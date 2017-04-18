@@ -1,0 +1,111 @@
+<!-- ==========================
+  BREADCRUMB - START
+=========================== -->
+<section class="breadcrumb-wrapper">
+  <div class="container">
+    <div class="row">
+      <div class="col-xs-6">
+        <h2>fashionClub</h2>
+        <p>Sign Up</p>
+      </div>
+      <div class="col-xs-6">
+        <ol class="breadcrumb">
+          <li><a href="/">Home</a></li>
+          <li class="active">Sign Up</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- ==========================
+    BREADCRUMB - END
+  =========================== -->
+
+<!-- ==========================
+  ACCOUNT - START
+=========================== -->
+<section class="content account">
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2 col-lg-6 col-lg-offset-3">
+        <div class="login-form-wrapper">
+          <h3>Sign Up</h3>
+          <% if @user.errors.any? %>
+              <br/>
+              <ul>
+                <% for error_msg in @user.errors.full_messages %>
+                    <li style="color: #ff0000"><%= error_msg %></li>
+                <% end %>
+              </ul>
+              <br/>
+          <% end %>
+
+          <%= form_for(:user) do |f| %>
+              <div class="form-group">
+                <label>First name<span class="required">*</span></label>
+                <%= f.text_field :first_name, class: "form-control" %>
+              </div>
+              <div class="form-group">
+                <label>Last name<span class="required">*</span></label>
+                <%= f.text_field :last_name, class: "form-control" %>
+              </div>
+              <div class="form-group">
+                <label>Email<span class="required">*</span></label>
+                <%= f.email_field :email, class: "form-control" %>
+              </div>
+              <div class="form-group">
+                <label>Password<span class="required">*</span></label>
+                <%= f.password_field :password, class: "form-control" %>
+              </div>
+              <%= f.submit "Create Account", class: "btn btn-primary btn-lg btn-block" %>
+          <% end %>
+          <p class="form-text">Already have an account? <a href="/signin">Log in</a></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- ==========================*
+  ACCOUNT - END
+=========================== -->
+
+
+
+<!-- ==========================
+  NEWSLETTER - START
+=========================== -->
+<section class="separator separator-newsletter">
+  <div class="container">
+    <div class="newsletter-left">
+      <div class="newsletter-badge">
+        <span>Subsribe & Get </span>
+        <span class="price">$15</span>
+        <span>discount</span>
+      </div>
+    </div>
+    <div class="newsletter-right">
+      <div class="row">
+        <div class="col-sm-6">
+          <div class="newsletter-body">
+            <h3>Newsletter</h3>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
+              dolore magna aliqua.</p>
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <form>
+            <div class="input-group input-group-lg">
+              <input type="email" class="form-control" placeholder="Enter email address">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-primary" type="button">Sign Up</button>
+                                </span>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- ==========================
+  NEWSLETTER - END
+=========================== -->
